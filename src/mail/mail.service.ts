@@ -15,7 +15,7 @@ export class MailService {
     });
     const currentDate = new Date();
     const image = {
-      src: 'https://res.cloudinary.com/dwt5jjcjw/image/upload/v1729155153/products/6710d0454d14eb082679ca68/ll714fziezhato0raggt.png',
+      src: 'https://res.cloudinary.com/dwt5jjcjw/image/upload/fl_preserve_transparency/v1730875343/du0lowpjdc6bzd8nuzvg.jpg?_s=public-apps',
       name: 'logo',
     };
     const formattedDate =
@@ -50,7 +50,7 @@ export class MailService {
 
   async forgotPassword(email: string, url: string) {
     const image = {
-      src: 'https://res.cloudinary.com/dwt5jjcjw/image/upload/v1729155153/products/6710d0454d14eb082679ca68/ll714fziezhato0raggt.png',
+      src: 'https://res.cloudinary.com/dwt5jjcjw/image/upload/fl_preserve_transparency/v1730875343/du0lowpjdc6bzd8nuzvg.jpg?_s=public-apps',
       name: 'logo',
     };
     await this.mailerService.sendMail({

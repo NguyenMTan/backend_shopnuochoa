@@ -14,6 +14,9 @@ import { MailModule } from './mail/mail.module';
 import { ReportModule } from './report/report.module';
 import { BlogModule } from './blog/blog.module';
 import { ReviewModule } from './review/review.module';
+import { ConversationModule } from './conversation/conversation.module';
+import { MessageModule } from './message/message.module';
+import { EventsModule } from './events/event.module';
 
 @Module({
   imports: [
@@ -32,6 +35,9 @@ import { ReviewModule } from './review/review.module';
     ReportModule,
     BlogModule,
     ReviewModule,
+    ConversationModule,
+    MessageModule,
+    EventsModule,
   ],
   controllers: [],
   providers: [],

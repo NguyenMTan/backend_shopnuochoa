@@ -22,12 +22,16 @@ export class BlogRepository {
     sort: 'asc' | 'desc',
     keyword: any,
   ) {
-    return await this.model
+    const blogs = await this.model
       .find(keyword ? { $or: [{ title: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
-      .sort({ name: sort })
+      .sort({ create_at: sort })
       .limit(limit)
       .lean<Blog[]>(true);
+
+    blogs.reverse();
+
+    return blogs;
   }
 
   async deleteOne(id: string) {

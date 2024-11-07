@@ -2,9 +2,9 @@
   style='
         width: 800px;
         padding: 40px;
-        background-color: black;
         border-radius: 10px;
         margin: auto;
+        border: 1px solid black;
     '
 >
   <div style='display: flex; margin-bottom: 30px'>
@@ -16,7 +16,7 @@
     <div style='margin: auto 0 auto auto'>
       <p
         style='
-                    color: white;
+                    color: black;
                     margin: 0;
                     text-align: right;
                     font-weight: bold;
@@ -25,7 +25,7 @@
       >
         HÓA ĐƠN
       </p>
-      <p style='color: white; margin: 0; text-align: right'>
+      <p style='color: black; margin: 0; text-align: right'>
         Ngày:
         {{date}}
       </p>
@@ -34,19 +34,19 @@
 
   <div style='display: flex; margin-bottom: 50px; width: 100%'>
     <div>
-      <h3 style='margin-bottom: 5px; color: white'>HÓA ĐƠN CHO:</h3>
-      <p style='margin: 0; color: white'>Tên: {{customer.name}}</p>
-      <p style='margin: 0; color: white'>
+      <h3 style='margin-bottom: 5px; color: black'>HÓA ĐƠN CHO:</h3>
+      <p style='margin: 0; color: black'>Tên: {{customer.name}}</p>
+      <p style='margin: 0; color: black'>
         Điện thoại:
         {{customer.phone_number}}
       </p>
-      <p style='margin: 0; color: white'>Địa chỉ: {{customer.address}}</p>
+      <p style='margin: 0; color: black'>Địa chỉ: {{customer.address}}</p>
     </div>
     <div style='text-align: right; margin-left: auto'>
-      <h3 style='margin-bottom: 5px; color: white'>THANH TOÁN CHO:</h3>
-      <p style='margin: 0; color: white'>Shop nước hoa</p>
-      <p style='margin: 0; color: white'>shopnuochoa@gmail.com</p>
-      <p style='margin: 0; color: white'>shopnuochoa.vn</p>
+      <h3 style='margin-bottom: 5px; color: black'>THANH TOÁN CHO:</h3>
+      <p style='margin: 0; color: black'>Shop nước hoa</p>
+      <p style='margin: 0; color: black'>shopnuochoa@gmail.com</p>
+      <p style='margin: 0; color: black'>shopnuochoa.vn</p>
     </div>
   </div>
 
@@ -56,10 +56,10 @@
         <th
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        background-color: wheat;
-                        color: black;
+                        background-color: black;
+                        color: white;
                     '
         >
           SẢN PHẨM
@@ -67,10 +67,10 @@
         <th
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        background-color: wheat;
-                        color: black;
+                        background-color: black;
+                        color: white;
                     '
         >
           SỐ LƯỢNG
@@ -78,10 +78,10 @@
         <th
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        background-color: wheat;
-                        color: black;
+                        background-color: black;
+                        color: white;
                     '
         >
           ĐƠN GIÁ
@@ -89,10 +89,10 @@
         <th
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        background-color: wheat;
-                        color: black;
+                        background-color: black;
+                        color: white;
                     '
         >
           GIẢM GIÁ
@@ -100,10 +100,10 @@
         <th
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        background-color: wheat;
-                        color: black;
+                        background-color: black;
+                        color: white;
                     '
         >
           THÀNH TIỀN
@@ -116,9 +116,9 @@
           <td
             style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                     '
           >
             {{this.product_id.name}}
@@ -126,9 +126,9 @@
           <td
             style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                     '
           >
             {{formatNumber this.quantity}}
@@ -136,9 +136,9 @@
           <td
             style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                     '
           >
             {{formatNumber this.product_id.price}}
@@ -146,9 +146,9 @@
           <td
             style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                     '
           >
             {{this.product_id.sale}}
@@ -157,9 +157,9 @@
           <td
             style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                     '
           >
             {{formatNumber this.total}}
@@ -173,9 +173,9 @@
           colspan='4'
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                     '
         >
           PHÍ SHIP
@@ -183,9 +183,9 @@
         <td
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                         font-weight: bold;
                     '
         >
@@ -197,11 +197,11 @@
           colspan='4'
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                         font-weight: bold;
-                        border-top: 2px solid wheat;
+                        border-top: 2px solid black;
                     '
         >
           TỔNG CỘNG
@@ -209,11 +209,11 @@
         <td
           style='
                         padding: 10px;
-                        border: 1px solid wheat;
+                        border: 1px solid black;
                         text-align: center;
-                        color: white;
+                        color: black;
                         font-weight: bold;
-                        border-top: 2px solid wheat;
+                        border-top: 2px solid black;
                     '
         >
           {{formatNumber total}}
@@ -226,7 +226,7 @@
     style='
             text-align: center;
             font-size: 12px;
-            color: white;
+            color: black;
             margin-top: 20px;
         '
   >
