@@ -8,7 +8,8 @@ export class ConversationService {
   constructor(private readonly repository: ConversationRepository) {}
 
   async getConversation({ sender_id, receiver_id }: ConversationDto) {
-    return await this.repository.get({ sender_id, receiver_id });
+    const conversation = await this.repository.get({ sender_id, receiver_id });
+    return conversation;
   }
 
   async getAll(user_id: string) {
@@ -17,5 +18,9 @@ export class ConversationService {
 
   async createConversation(data: UserSendMessageDto) {
     return await this.repository.create(data);
+  }
+
+  async updateMessages(id: string, message_id: string) {
+    return await this.repository.updateMessage(id, message_id);
   }
 }

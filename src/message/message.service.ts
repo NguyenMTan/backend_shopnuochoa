@@ -24,28 +24,31 @@ export class MessageService {
         await this.conversationService.createConversation(sendMessage);
     }
 
-    const newMessage = await this.repository.create({
-      _id: new Types.ObjectId(),
-      sender: {
-        id: sender.id,
-        name: sender.name,
-        email: sender.email,
-      },
-      receiver: {
-        id: receiver.id,
-        name: receiver.name,
-        email: receiver.email,
-      },
-      message,
-      created_at: new Date(),
-    });
+    try {
+      const newMessage = await this.repository.create({
+        _id: new Types.ObjectId(),
+        sender: {
+          id: sender.id,
+          name: sender.name,
+          email: sender.email,
+        },
+        receiver: {
+          id: receiver.id,
+          name: receiver.name,
+          email: receiver.email,
+        },
+        message,
+        created_at: new Date(),
+      });
+      const newCover = await this.conversationService.updateMessages(
+        conversation._id.toHexString(),
+        newMessage._id.toHexString(),
+      );
 
-    if (newMessage) {
-      conversation.messages.push(newMessage._id);
+      return newMessage;
+    } catch (error) {
+      console.log(error);
     }
-
-    await conversation.save();
-    return await newMessage.save();
   }
 
   async getMessages(sender_id: string, receiver_id: string) {

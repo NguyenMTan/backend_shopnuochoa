@@ -10,6 +10,6 @@ export class MessageRepository {
   ) {}
 
   async create(message: Message) {
-    return await new this.model(message);
+    return (await this.model.create(message)).toJSON();
   }
 }

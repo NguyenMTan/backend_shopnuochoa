@@ -12,7 +12,7 @@ import { UserSendMessageDto } from './dto/user-message.dto';
 
 @WebSocketGateway({
   cors: {
-    origin: ['http://localhost:4000'],
+    origin: ['http://localhost:5173'],
   },
 })
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {

@@ -36,4 +36,18 @@ export class ConversationRepository {
       _id: new Types.ObjectId(),
     });
   }
+
+  async updateMessage(id: string, message_id: string) {
+    const newMes = await this.model
+      .findByIdAndUpdate(
+        id,
+        {
+          $addToSet: { messages: message_id },
+        },
+        { new: true },
+      )
+      .populate('messages');
+
+    return newMes;
+  }
 }
