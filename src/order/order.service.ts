@@ -5,6 +5,7 @@ import { Cart } from 'src/cart/model/cart.schema';
 import { Order } from './model/order.schema';
 import { Types } from 'mongoose';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { checkValisIsObject } from 'src/common/common';
 
 @Injectable()
 export class OrderService {
@@ -29,6 +30,7 @@ export class OrderService {
       address,
       phone_number,
       email,
+      status: 'waiting',
       delivery: new Date(),
       total: total + 30000,
       product_cost: product_cost,
@@ -71,5 +73,17 @@ export class OrderService {
       customer_id,
       product_id,
     );
+  }
+
+  async updateOrderStatus(id: string, status: string) {
+    checkValisIsObject(id, 'order_id');
+    const checkStatus =
+      status === 'waiting' ||
+      status === 'shipping' ||
+      status === 'success' ||
+      status === 'false'
+        ? status
+        : 'waiting';
+    return await this.orderRepository.updateOrderStatus(id, checkStatus);
   }
 }

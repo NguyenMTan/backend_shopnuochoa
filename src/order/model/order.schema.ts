@@ -19,6 +19,11 @@ export class Order {
   @Prop({ type: String })
   email: string;
 
+  @Prop({
+    enum: ['waiting', 'shipping', 'success', 'false'],
+  })
+  status: string;
+
   @Prop({ type: Date, default: Date.now() })
   delivery: Date;
 

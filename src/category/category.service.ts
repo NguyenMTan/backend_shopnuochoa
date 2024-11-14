@@ -75,12 +75,13 @@ export class CategoryService {
 
   async updateById(id: string, categoryUpdate: UpdateCategoryDto) {
     const { name, status, parent_id } = categoryUpdate;
-    const checkParent = parent_id !== '' ? parent_id : null;
+    const checkParent =
+      parent_id !== '' && parent_id !== 'none' ? parent_id : null;
 
     const category = await this.findById(id);
 
     try {
-      if (parent_id !== '') {
+      if (parent_id !== '' && parent_id !== 'none') {
         checkValisIsObject(parent_id, 'parent_id');
 
         if (

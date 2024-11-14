@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Param,
+  Put,
   Query,
   Request,
   UseGuards,
@@ -37,5 +38,12 @@ export class OrderController {
   @Get(':id')
   async getOne(@Param('id') id: string) {
     return await this.service.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard, RoleAuthGuard)
+  @Roles(Role.ADMIN, Role.USER)
+  @Put(':id/status')
+  updateStatus(@Param('id') id: string, @Query('status') status: string) {
+    return this.service.updateOrderStatus(id, status);
   }
 }

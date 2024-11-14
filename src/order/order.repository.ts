@@ -88,7 +88,7 @@ export class OrderRepository {
 
   async findByCustomerAndProduct(customer_id: string, product_id: string) {
     const orders = await this.orderModel
-      .find({ customer_id })
+      .find({ customer_id, status: 'success' })
       .populate({ path: 'order_detail', match: { product_id } })
       .lean<Order[]>(true);
 
@@ -97,5 +97,11 @@ export class OrderRepository {
     );
 
     return filteredOrders;
+  }
+
+  async updateOrderStatus(id: string, status: string) {
+    return await this.orderModel
+      .findOneAndUpdate({ _id: id }, { status: status }, { new: true })
+      .lean<Order>(true);
   }
 }
