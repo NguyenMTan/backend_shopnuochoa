@@ -49,6 +49,10 @@ export class CustomerRepository {
       .lean<Customer[]>(true);
   }
 
+  async findAllNoPagination() {
+    return await this.model.find().lean<Customer[]>(true);
+  }
+
   async updateOne(id: string, customerUpdate: UpdateCustomerDto) {
     return await this.model
       .findOneAndUpdate({ _id: id }, customerUpdate, { new: true })

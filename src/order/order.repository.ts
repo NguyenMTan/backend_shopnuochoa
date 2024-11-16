@@ -81,7 +81,40 @@ export class OrderRepository {
 
   async getLastOptionDays(startDate: Date, endDate: Date) {
     return await this.orderModel
-      .find({ created_at: { $gte: startDate, $lt: endDate } })
+      .find({
+        created_at: { $gte: startDate, $lt: endDate },
+        status: 'success',
+      })
+      .sort({ created_at: 1 })
+      .lean<Order[]>(true);
+  }
+
+  async getLastOptionDaysFalse(startDate: Date, endDate: Date) {
+    return await this.orderModel
+      .find({
+        created_at: { $gte: startDate, $lt: endDate },
+        status: 'false',
+      })
+      .sort({ created_at: 1 })
+      .lean<Order[]>(true);
+  }
+
+  async getLastOptionDaysWait(startDate: Date, endDate: Date) {
+    return await this.orderModel
+      .find({
+        created_at: { $gte: startDate, $lt: endDate },
+        status: 'waiting',
+      })
+      .sort({ created_at: 1 })
+      .lean<Order[]>(true);
+  }
+
+  async getLastOptionDaysShip(startDate: Date, endDate: Date) {
+    return await this.orderModel
+      .find({
+        created_at: { $gte: startDate, $lt: endDate },
+        status: 'shipping',
+      })
       .sort({ created_at: 1 })
       .lean<Order[]>(true);
   }
