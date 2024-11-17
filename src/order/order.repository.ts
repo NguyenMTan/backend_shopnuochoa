@@ -42,7 +42,7 @@ export class OrderRepository {
     sort: 'asc' | 'desc',
     keyword: any,
   ) {
-    return await this.orderModel
+    const orders = await this.orderModel
       .find(
         keyword
           ? {
@@ -58,6 +58,10 @@ export class OrderRepository {
       .limit(limit)
       .populate('order_detail')
       .lean<Order[]>(true);
+
+    orders.reverse();
+
+    return orders;
   }
 
   async findOne(id: string) {
@@ -117,6 +121,26 @@ export class OrderRepository {
       })
       .sort({ created_at: 1 })
       .lean<Order[]>(true);
+  }
+
+  async findByProductOptionDay(
+    startDate: Date,
+    endDate: Date,
+    product_id: string,
+  ) {
+    const orders = await this.orderModel
+      .find({
+        created_at: { $gte: startDate, $lt: endDate },
+        status: 'success',
+      })
+      .populate({ path: 'order_detail', match: { product_id } })
+      .lean<Order[]>(true);
+
+    const filteredOrders = orders.filter(
+      (order) => order.order_detail.length > 0,
+    );
+
+    return filteredOrders;
   }
 
   async findByCustomerAndProduct(customer_id: string, product_id: string) {

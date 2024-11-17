@@ -4,14 +4,17 @@ import {
   ReportCustomersDto,
   ReportItemDto,
   ReportOrderDto,
+  ReportTopSellDto,
 } from './dto/report-item.dto';
 import { CustomerRepository } from 'src/customer/customer.repository';
+import { ProductRepository } from 'src/product/product.repository';
 
 @Injectable()
 export class ReportService {
   constructor(
     private readonly orderRepository: OrderRepository,
     private readonly customerRepository: CustomerRepository,
+    private readonly productRepository: ProductRepository,
   ) {}
 
   async getReport(lastDate: string) {
@@ -37,6 +40,19 @@ export class ReportService {
         return await this.getLastYearOrderStatus();
       default:
         return await this.getLastOptionDaysOrderStatus(7);
+    }
+  }
+
+  async getReportTopSell(lastDate: string) {
+    switch (lastDate) {
+      case 'last_7_days':
+        return await this.getTopSellProduct(7);
+      case 'last_28_days':
+        return await this.getTopSellProduct(28);
+      case 'last_year':
+        return await this.getTopSellProductLastYear();
+      default:
+        return await this.getTopSellProduct(7);
     }
   }
 
@@ -144,23 +160,23 @@ export class ReportService {
   async getLastOptionDaysOrderStatus(day: number) {
     let reportItem: ReportOrderDto[] = [];
     const currentDate = new Date();
-    const daysAgo = new Date();
-    daysAgo.setDate(currentDate.getDate() - day);
+    const startDay = new Date();
+    startDay.setDate(currentDate.getDate() - day);
 
     const waitOrders = await this.orderRepository.getLastOptionDaysWait(
-      daysAgo,
+      startDay,
       currentDate,
     );
     const shipOrders = await this.orderRepository.getLastOptionDaysShip(
-      daysAgo,
+      startDay,
       currentDate,
     );
     const successOrders = await this.orderRepository.getLastOptionDays(
-      daysAgo,
+      startDay,
       currentDate,
     );
     const falseOrders = await this.orderRepository.getLastOptionDaysFalse(
-      daysAgo,
+      startDay,
       currentDate,
     );
 
@@ -250,5 +266,57 @@ export class ReportService {
     }
 
     return reportItem;
+  }
+
+  async getTopSellProduct(day: number) {
+    let reportItem: ReportTopSellDto[] = [];
+    const currentDate = new Date();
+    const daysAgo = new Date();
+    daysAgo.setDate(currentDate.getDate() - day);
+
+    const products = await this.productRepository.findAllNoPagination();
+
+    for (const product of products) {
+      const orders = await this.orderRepository.findByProductOptionDay(
+        daysAgo,
+        currentDate,
+        product._id.toHexString(),
+      );
+
+      if (orders.length > 0) {
+        reportItem.push({ name: product.name, sell_count: orders.length });
+      }
+    }
+
+    reportItem.sort((a, b) => b.sell_count - a.sell_count);
+
+    return reportItem.slice(0, 5);
+  }
+
+  async getTopSellProductLastYear() {
+    let reportItem: ReportTopSellDto[] = [];
+    const currentDate = new Date();
+    const startMonth = new Date(
+      currentDate.getFullYear() - 1,
+      currentDate.getMonth(),
+      1,
+    );
+
+    const products = await this.productRepository.findAllNoPagination();
+
+    for (const product of products) {
+      const orders = await this.orderRepository.findByProductOptionDay(
+        startMonth,
+        currentDate,
+        product._id.toHexString(),
+      );
+      if (orders.length > 0) {
+        reportItem.push({ name: product.name, sell_count: orders.length });
+      }
+    }
+
+    reportItem.sort((a, b) => b.sell_count - a.sell_count);
+
+    return reportItem.slice(0, 5);
   }
 }

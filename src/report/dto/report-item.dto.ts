@@ -14,3 +14,8 @@ export class ReportOrderDto {
   status: string; // trang thai hoa don
   order_count: number; // tong so hoa don cua trang thai do
 }
+
+export class ReportTopSellDto {
+  name: string;
+  sell_count: number;
+}

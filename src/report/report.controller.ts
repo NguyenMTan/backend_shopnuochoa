@@ -15,6 +15,11 @@ export class ReportController {
     return this.service.getReportOrders(period);
   }
 
+  @Get('topsell/:period')
+  getTopSell(@Param('period') period: string) {
+    return this.service.getReportTopSell(period);
+  }
+
   @Get(':period')
   getReport(@Param('period') period: string) {
     return this.service.getReport(period);

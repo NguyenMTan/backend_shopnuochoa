@@ -101,4 +101,8 @@ export class ProductRepository {
   async findSale() {
     return await this.model.find({ status: true }).lean<Product[]>(true);
   }
+
+  async findAllNoPagination() {
+    return await this.model.find().lean<Product[]>(true);
+  }
 }
