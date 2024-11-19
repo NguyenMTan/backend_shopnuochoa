@@ -75,19 +75,38 @@ export class UserService implements OnModuleInit {
     }
   }
 
+  async getUserChat() {
+    return await this.repository.findUserChat();
+  }
+
   async onModuleInit(): Promise<void> {
     const createUserAdmin: CreateUserDto = {
       email: 'kewtie@gmail.com',
       name: 'Kewtie',
-      password: 'Qt123!',
+      password: 'Kt123!',
       status: true,
       role: [Role.ADMIN],
+    };
+    const createUserChat: CreateUserDto = {
+      email: 'kewtiechat@gmail.com',
+      name: 'Kewtie Chat',
+      password: 'Chat123!',
+      status: true,
+      role: [Role.CHAT],
     };
     const initInDB = await this.repository.findByEmail(createUserAdmin.email);
     if (!initInDB) {
       await this.repository.create({
         ...createUserAdmin,
         password: await bcrypt.hash(createUserAdmin.password, 10),
+      });
+    }
+
+    const initChat = await this.repository.findByEmail(createUserChat.email);
+    if (!initChat) {
+      await this.repository.create({
+        ...createUserChat,
+        password: await bcrypt.hash(createUserChat.password, 10),
       });
     }
   }

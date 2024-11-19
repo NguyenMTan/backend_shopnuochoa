@@ -52,7 +52,7 @@ export class CustomerController {
   }
 
   @UseGuards(JwtAuthGuard, RoleAuthGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @Roles(Role.ADMIN, Role.USER, Role.CHAT)
   @Get()
   async getAll(@Query() params: ParamPaginationDto) {
     const customers = await this.customerService.findAll(params);

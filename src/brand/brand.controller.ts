@@ -37,7 +37,7 @@ export class BrandController {
   }
 
   @UseGuards(JwtAuthGuard, RoleAuthGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @Roles(Role.ADMIN, Role.USER, Role.CHAT)
   @Get()
   async getAll(@Query() page: ParamPaginationDto) {
     const listBrand = await this.service.getAll(page);

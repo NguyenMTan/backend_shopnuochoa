@@ -61,4 +61,8 @@ export class UserRepository {
   async findByEmail(email: string) {
     return await this.model.findOne({ email }).lean<User>(true);
   }
+
+  async findUserChat() {
+    return await this.model.findOne({ role: 'CHAT' }).lean<User>(true);
+  }
 }

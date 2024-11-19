@@ -35,7 +35,7 @@ export class UserController {
 
   // Lấy tất cả
   @UseGuards(JwtAuthGuard, RoleAuthGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.CHAT, Role.USER)
   @Get()
   async getAllUsers(@Query() page: ParamPaginationDto) {
     const listUsers = await this.service.getAll(page);
@@ -47,6 +47,12 @@ export class UserController {
   getMe(@Request() req) {
     const { _id } = req.user;
     return this.service.getOne(_id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('chat')
+  getUserChat() {
+    return this.service.getUserChat();
   }
 
   // Lấy user theo Id

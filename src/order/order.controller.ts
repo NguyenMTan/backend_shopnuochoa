@@ -21,7 +21,7 @@ export class OrderController {
   constructor(private readonly service: OrderService) {}
 
   @UseGuards(JwtAuthGuard, RoleAuthGuard)
-  @Roles(Role.ADMIN, Role.USER)
+  @Roles(Role.ADMIN, Role.USER, Role.CHAT)
   @Get()
   async getAll(@Query() params: ParamPaginationDto) {
     const products = await this.service.findAll(params);
