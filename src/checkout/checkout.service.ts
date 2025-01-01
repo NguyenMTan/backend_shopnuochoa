@@ -22,7 +22,7 @@ export class CheckOutService {
     carts.forEach(async (item: any) => {
       const product = await this.productService.findById(item.product_id._id);
       if (item.quantity > product.stock) {
-        throw new BadRequestException('Sản phẩm k đủ để thanh toán');
+        throw new BadRequestException('Sản phẩm không đủ để thanh toán');
       }
     });
 
@@ -39,7 +39,7 @@ export class CheckOutService {
 
     const customer = await this.customerService.findById(customer_id);
 
-    await this.mailService.placeOrder(order, customer);
+    this.mailService.placeOrder(order, customer);
 
     return order;
   }
